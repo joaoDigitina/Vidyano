@@ -15,34 +15,46 @@
     <template>
         <link rel="stylesheet" href="query-grid.css" />
         <vi-style id="style" key="vi-query-grid"></vi-style>
-        <div class="vertical layout fit">
-            <header id="dataHeaderHost" class="horizontal layout">
-                <header class="horizontal layout">
-                    <template is="dom-if" if="[[canSelectAll]]">
-                        <vi-query-grid-select-all query="[[query]]" disabled$="[[!canSelectAll]]"></vi-query-grid-select-all>
-                    </template>
-                    <template is="dom-if" if="[[canFilter]]">
-                        <vi-query-grid-filters id="filters" query="[[query]]"></vi-query-grid-filters>
-                    </template>
+        <div class="layout horizontal fit">
+            <div id="grid" class="vertical layout flex relative">
+                <header id="dataHeaderHost" class="horizontal layout">
+                    <header class="horizontal layout">
+                        <template is="dom-if" if="[[canSelectAll]]">
+                            <vi-query-grid-select-all query="[[query]]" disabled$="[[!canSelectAll]]"></vi-query-grid-select-all>
+                        </template>
+                        <template is="dom-if" if="[[canFilter]]">
+                            <vi-query-grid-filters id="filters" query="[[query]]"></vi-query-grid-filters>
+                        </template>
+                    </header>
+                    <vi-popup-menu id="columnMenu" context-menu-only>
+                        <vi-popup-menu-item id="columnMenuTogglePin" icon="Pin" on-tap="_togglePin"></vi-popup-menu-item>
+                        <vi-popup-menu-item id="columnMenuConfigure" label="[[translateMessage('Manage', isAttached)]]" icon="Configure" on-tap="_configureColumns"></vi-popup-menu-item>
+                    </vi-popup-menu>
                 </header>
-                <vi-popup-menu id="columnMenu" context-menu-only>
-                    <vi-popup-menu-item id="columnMenuTogglePin" icon="Pin" on-tap="_togglePin"></vi-popup-menu-item>
-                    <vi-popup-menu-item id="columnMenuConfigure" label="[[translateMessage('Manage', isAttached)]]" icon="Configure" on-tap="_configureColumns"></vi-popup-menu-item>
-                </vi-popup-menu>
-            </header>
-            <div class="horizontal layout flex relative">
-                <vi-size-tracker size="{{viewportSize}}"></vi-size-tracker>
-                <vi-scroller id="scroller" class="flex" vertical-scroll-offset="{{_verticalScrollOffset}}" horizontal-scroll-offset="{{_horizontalScrollOffset}}">
-                    <div id="verticalSpacer">
-                        <div id="dataHost"></div>
-                    </div>
-                </vi-scroller>
+                <div class="horizontal layout flex relative">
+                    <vi-size-tracker size="{{viewportSize}}"></vi-size-tracker>
+                    <vi-scroller id="scroller" class="flex" vertical-scroll-offset="{{_verticalScrollOffset}}" horizontal-scroll-offset="{{_horizontalScrollOffset}}">
+                        <div id="verticalSpacer">
+                            <div id="dataHost"></div>
+                        </div>
+                    </vi-scroller>
+                </div>
+                <footer id="dataFooterHost"></footer>
+                <div id="initializingOverlay"></div>
+                <vi-spinner id="busy"></vi-spinner>
+                <vi-popup-core id="actions" on-tap="_closeActions"></vi-popup-core>
             </div>
-            <footer id="dataFooterHost"></footer>
+            <div class="layout vertical flex relative" hidden$="[[!previewObject]]" id="preview">
+                <header class="layout horizontal">
+                    <span class="flex">[[previewObject.breadcrumb]]</span>
+                </header>
+                <div id="previewActions" class="layout horizontal">
+                    <button is="vi-button" label="Save" icon="Action_EndEdit" inverse disabled$="[[!previewObject.isDirty]]" on-tap="_previewObjectSave"></button>
+                    <button is="vi-button" label="Cancel" inverse disabled$="[[!previewObject.isDirty]]" on-tap="_previewObjectCancel"></button>
+                </div>
+                <vi-persistent-object-tab-presenter class="flex" tab="[[previewObjectTab]]"></vi-persistent-object-tab-presenter>
+            </div>
         </div>
-        <div id="initializingOverlay"></div>
-        <vi-spinner></vi-spinner>
-        <vi-popup-core id="actions" on-tap="_closeActions"></vi-popup-core>
     </template>
 </dom-module>
 

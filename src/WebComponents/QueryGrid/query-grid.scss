@@ -8,6 +8,10 @@
 
     --vi-query-grid-minimum-column-width: 30px;
 
+    #grid {
+        overflow: hidden;
+    }
+
     #dataHeaderHost {
         @include noSelection();
         @include relative();
@@ -363,7 +367,7 @@
         }
     }
 
-    // // FLAG COMBINATIONS //////////////////////////////////////////////////////////
+    // FLAG COMBINATIONS //////////////////////////////////////////////////////////
 
     &:not([inline-actions]) {
         td[is="vi-query-grid-table-data-column-actions"] {
@@ -454,7 +458,38 @@
         }
     }
 
+    // PREVIEW  ////////////////////////////////////////////////////////////////////
+
+    #preview {
+        z-index: 2;
+        line-height: initial;
+        border-left: 4px solid #f1f1f1;
+
+        header {
+            line-height: var(--theme-h2);
+            padding: 0 var(--theme-h4);
+            background-color: var(--theme-color);
+            color: white;
+            font-size: 13px;
+        }
+
+        > #previewActions {
+            background-color: #F9F9F9;
+            border-bottom: 1px solid var(--theme-light-border);
+            height: var(--theme-h2);
+            line-height: var(--theme-h2);
+
+            > button {
+                height: var(--theme-h2);
+                line-height: var(--theme-h2);
+                padding-left: var(--theme-h4);
+                padding-right: var(--theme-h4);
+            }
+        }
+    }
+
     ///////////////////////////////////////////////////////////////////////////////
+
     #initializingOverlay {
         position: absolute;
         left: 0;
@@ -476,7 +511,7 @@
     }
 
     &:not([is-busy]):not(.initializing) {
-        > vi-spinner {
+        vi-spinner#busy {
             display: none;
         }
     }
@@ -489,9 +524,6 @@
         #dataHost {
             opacity: 0.5;
         }
-    }
-
-    #verticalSpacer {
     }
 
     > vi-size-tracker {

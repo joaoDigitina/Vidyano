@@ -444,18 +444,27 @@
         }
 
         private _tap(e: TapEvent) {
-            if (!this.item)
-                return;
-
-            if (this.item.getTypeHint("extraclass", "").split(" ").some(c => c.toUpperCase() === "DISABLED"))
+            if (!this.item || this.item.getTypeHint("extraclass", "").split(" ").some(c => c.toUpperCase() === "DISABLED"))
                 return;
 
             if (this.table.grid.query.canRead && !this.table.grid.query.asLookup && !this.table.grid.asLookup) {
-                if (!this.table.grid.app.noHistory && e.detail.sourceEvent && ((<KeyboardEvent>e.detail.sourceEvent).ctrlKey || (<KeyboardEvent>e.detail.sourceEvent).shiftKey)) {
+                if (!this.table.grid.app.noHistory && e.detail.sourceEvent && ((<KeyboardEvent>e.detail.sourceEvent).ctrlKey || (<KeyboardEvent>e.detail.sourceEvent).shiftKey) && !this.table.grid.previewObject) {
                     // Open in new window/tab
                     window.open(Path.routes.root + this.table.grid.app.getUrlForPersistentObject(this.item.query.persistentObject.id, this.item.id));
 
                     e.stopPropagation();
+                    return;
+                }
+
+                if (!!this.table.grid.previewObject) {
+                    const event = e.detail.preventer || e.detail.sourceEvent;
+
+                    this.table.grid.fire("item-select", {
+                        item: this.item,
+                        shift: !!event && event instanceof MouseEvent ? event.shiftKey : false,
+                        ctrl: !!event && event instanceof MouseEvent ? event.ctrlKey : true
+                    }, { bubbles: false });
+
                     return;
                 }
 
@@ -924,6 +933,15 @@
                 reflectToAttribute: true,
                 computed: "_computeHasSelectedItems(query.selectedItems)"
             },
+            previewObject: {
+                type: Object,
+                readOnly: true,
+                value: null
+            },
+            previewObjectTab: {
+                type: Object,
+                computed: "previewObject.tabs.0"
+            },
             noInlineActions: {
                 type: Boolean,
                 reflectToAttribute: true,
@@ -965,6 +983,7 @@
         observers: [
             "_updateTables(_items, _columns, canReorder)",
             "_updateVerticalSpacer(query.totalItems, rowHeight)",
+            "_updatePreviewObject(query.selectedItems)"
         ],
         forwardObservers: [
             "query.columns",
@@ -977,6 +996,7 @@
             "query.selectAll.isAvailable",
             "query.selectAll.allSelected",
             "query.selectedItems",
+            "previewObject.isDirty",
             "_settings.columns"
         ],
         listeners: {
@@ -1031,12 +1051,14 @@
         asLookup: boolean;
         initializing: boolean;
         isReordering: boolean;
+        previewObject: Vidyano.PersistentObject;
 
         private _setInitializing: (initializing: boolean) => void;
         private _setViewportSize: (size: ISize) => void;
         private _setRowHeight: (rowHeight: number) => void;
         private _setColumnWidthsCalculated: (val: boolean) => void;
         private _setIsReordering: (reodering: boolean) => void;
+        private _setPreviewObject: (tab: Vidyano.PersistentObject) => void;
 
         attached() {
             if (QueryGrid.tableCache.length > 0 && !this._tableData) {
@@ -1265,6 +1287,35 @@
 
         private _computeHasTotalItem(totalItem: Vidyano.QueryResultItem, items: Vidyano.QueryResultItem[], columnWidthsUpdated: boolean): boolean {
             return !!totalItem && items && items.length > 0 && columnWidthsUpdated;
+        }
+
+        private _updatePreviewObject(selectedItems: Vidyano.QueryResultItem[]) {
+            if (!this.query.canRead || !selectedItems || selectedItems.length !== 1) /* TODO: Number of allowed selected items */ {
+                this._setPreviewObject(null);
+                return;
+            }
+
+            selectedItems[0].getPersistentObject().then(po => {
+                if (this.query && this.query.selectedItems[0] === selectedItems[0]) {
+                    if (!po.isReadOnly)
+                        po.beginEdit();
+
+                    this._setPreviewObject(po);
+                }
+            });
+
+            this.async(() => {
+                this.app.importComponent("PersistentObjectTabPresenter");
+            }, 50);
+        }
+
+        private _previewObjectSave(e: TapEvent) {
+            this.previewObject.save();
+        }
+
+        private _previewObjectCancel(e: TapEvent) {
+            this.previewObject.cancelEdit();
+            this.previewObject.beginEdit();
         }
 
         private _updateTables(items: Vidyano.QueryResultItem[], columns: QueryGridColumn[], canReorder: boolean) {
