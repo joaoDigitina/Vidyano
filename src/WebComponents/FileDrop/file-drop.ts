@@ -20,7 +20,8 @@ namespace Vidyano.WebComponents {
             "dragover": "_dragOver",
             "dragleave": "_dragLeave",
             "drop": "_drop"
-        }
+        },
+        components: ["Icon"]
     })
     export class FileDrop extends WebComponent {
         readonly dragOver: boolean; private _setDragOver: (val: boolean) => void;

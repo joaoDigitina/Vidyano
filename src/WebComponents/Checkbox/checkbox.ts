@@ -36,7 +36,8 @@
         keybindings: {
             "space": "_keyToggle",
             "enter": "_keyToggle"
-        }
+        },
+        components: ["Icon"]
     })
     export class Checkbox extends WebComponents.WebComponent {
         checked: boolean;

@@ -149,6 +149,8 @@
                     observer: "_enabledChanged"
                 };
 
+                info.libs = ["sortable"];
+
                 return WebComponent.register(obj, info);
             };
         }

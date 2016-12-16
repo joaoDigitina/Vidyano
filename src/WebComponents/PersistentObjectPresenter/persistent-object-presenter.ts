@@ -45,7 +45,8 @@ namespace Vidyano.WebComponents {
             },
             "ctrl+s": "_save",
             "esc": "_cancelSave"
-        }
+        },
+        components: ["Error", "PersistentObjectAttributePresenter", "Spinner"]
     })
     export class PersistentObjectPresenter extends WebComponent implements IConfigurable {
         private _cacheEntry: PersistentObjectAppCacheEntry;

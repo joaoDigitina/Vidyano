@@ -96,7 +96,8 @@
         ],
         listeners: {
             "tabselect": "_tabselect"
-        }
+        },
+        components: ["ActionBar", "Notification", "PersistentObjectTabBar", "PersistentObjectTabPresenter", "PersistentObjectTab", "Spinner"]
     })
     export class PersistentObject extends WebComponent {
         private _uniqueId: string = Unique.get();
@@ -136,7 +137,7 @@
                 if (this.app.service.application.userSettings["PersistentObjectSettings"] &&
                     this.app.service.application.userSettings["PersistentObjectSettings"][this.persistentObject.id] &&
                     this.app.service.application.userSettings["PersistentObjectSettings"][this.persistentObject.id]["master-detail"]) {
-                        this.masterWidth = this.app.service.application.userSettings["PersistentObjectSettings"][this.persistentObject.id]["master-detail"];
+                    this.masterWidth = this.app.service.application.userSettings["PersistentObjectSettings"][this.persistentObject.id]["master-detail"];
                 }
                 else
                     this.masterWidth = "40%";
@@ -253,7 +254,7 @@
             return tabs && tabs.length > 0;
         }
 
-        private _tabselect(e: CustomEvent, detail: { name?: string; tab?: Vidyano.PersistentObjectTab}) {
+        private _tabselect(e: CustomEvent, detail: { name?: string; tab?: Vidyano.PersistentObjectTab }) {
             if (!detail.tab)
                 detail.tab = Enumerable.from(this.masterTabs).firstOrDefault(t => t.name === detail.name) || Enumerable.from(this.detailTabs).firstOrDefault(t => t.name === detail.name);
 

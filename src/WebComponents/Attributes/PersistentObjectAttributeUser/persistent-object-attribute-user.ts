@@ -15,7 +15,8 @@ namespace Vidyano.WebComponents.Attributes {
                 type: Boolean,
                 computed: "_computeCanBrowseReference(attribute.isReadOnly)",
             },
-        }
+        },
+        components: ["Icon", "SelectReferenceDialog"]
     })
     export class PersistentObjectAttributeUser extends WebComponents.Attributes.PersistentObjectAttribute {
         private _browsing: boolean;

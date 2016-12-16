@@ -27,7 +27,8 @@ namespace Vidyano.WebComponents.Attributes {
                 reflectToAttribute: true
             },
             placeholder: String
-        }
+        },
+        components: ["Icon"]
     })
     export class PersistentObjectAttributeMultiStringItem extends WebComponent {
         private _focusQueued: boolean;
@@ -89,7 +90,8 @@ namespace Vidyano.WebComponents.Attributes {
         },
         forwardObservers: [
             "attribute.isReadOnly"
-        ]
+        ],
+        components: ["Scroller"]
     })
     export class PersistentObjectAttributeMultiString extends PersistentObjectAttribute {
         strings: PersistentObjectAttributeMultiStringItem[];

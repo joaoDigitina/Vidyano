@@ -36,7 +36,8 @@ namespace Vidyano.WebComponents {
         },
         forwardObservers: [
             "query.labelWithTotalItems"
-        ]
+        ],
+        components: ["Spinner", "Icon"]
     })
     export class QueryPresenter extends WebComponent {
         private _customTemplate: PolymerTemplate;

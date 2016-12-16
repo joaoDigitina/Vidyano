@@ -83,7 +83,8 @@ namespace Vidyano.WebComponents {
             "action.canExecute",
             "action.isVisible",
             "action.options"
-        ]
+        ],
+        components: ["Button", "Icon", "PopupMenu"]
     })
     export class ActionButton extends WebComponent {
         private _skipObserver: boolean;

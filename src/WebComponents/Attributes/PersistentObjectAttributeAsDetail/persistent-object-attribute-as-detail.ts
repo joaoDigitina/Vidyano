@@ -46,7 +46,8 @@ namespace Vidyano.WebComponents.Attributes {
         ],
         forwardObservers: [
             "attribute.objects.*.isDeleted"
-        ]
+        ],
+        components: ["Button", "Icon", "Scroller", "SizeTracker", "Style"]
     })
     export class PersistentObjectAttributeAsDetail extends WebComponents.Attributes.PersistentObjectAttribute {
         private _inlineAddHeight: number;
@@ -246,7 +247,8 @@ namespace Vidyano.WebComponents.Attributes {
         ],
         forwardObservers: [
             "serviceObject.lastUpdated"
-        ]
+        ],
+        components: ["PersistentObjectAttributePresenter", "Attributes.PersistentObjectAttributeValidationError"]
     })
     export class PersistentObjectAttributeAsDetailRow extends WebComponents.WebComponent {
         private fullEdit: boolean;

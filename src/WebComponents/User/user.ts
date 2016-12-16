@@ -36,7 +36,8 @@ namespace Vidyano.WebComponents {
         forwardObservers: [
             "_signedInChanged(service.isSignedIn)",
             "_signedInChanged(service.isUsingDefaultCredentials)"
-        ]
+        ],
+        components: ["Button", "Icon", "PopupMenu"]
     })
     export class User extends WebComponent {
         readonly service: Vidyano.Service; private _setService: (service: Vidyano.Service) => void;

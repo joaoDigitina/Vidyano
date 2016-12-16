@@ -15,7 +15,10 @@ if (!_markedWithoutSoftbreaks) {
 namespace Vidyano.WebComponents.Attributes {
     "use strict";
 
-    @PersistentObjectAttribute.register
+    @PersistentObjectAttribute.register({
+        libs: ["marked-element"],
+        components: ["Scroller"]
+    })
     export class PersistentObjectAttributeCommonMark extends PersistentObjectAttribute {
         private _editTextAreaBlur() {
             if (this.attribute && this.attribute.isValueChanged && this.attribute.triggersRefresh)

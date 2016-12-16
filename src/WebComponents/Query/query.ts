@@ -25,7 +25,8 @@
         forwardObservers: [
             "query.labelWithTotalItems",
             "query.filters.currentFilter.name"
-        ]
+        ],
+        components: ["ActionBar", "Notification", "QueryItemsPresenter", "Spinner"]
     })
     export class Query extends WebComponent {
         private _cacheEntry: QueryAppCacheEntry;

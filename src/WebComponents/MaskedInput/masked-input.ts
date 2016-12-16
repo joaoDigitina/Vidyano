@@ -20,7 +20,8 @@ namespace Vidyano.WebComponents {
         },
         observers: [
             "_initialize(format, separator, isAttached)"
-        ]
+        ],
+        libs: ["masked-input"]
     })
     export class MaskedInput extends WebComponent {
         private _maskedInput: {

@@ -13,7 +13,8 @@
         },
         forwardObservers: [
             "_selectedItemsChanged(query.selectedItems)"
-        ]
+        ],
+        components: ["Button", "InputSearch", "Notification", "QueryGrid"]
     })
     export class SelectReferenceDialog extends Dialog {
         canSelect: boolean;

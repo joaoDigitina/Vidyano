@@ -7,7 +7,8 @@ namespace Vidyano.WebComponents.Attributes {
                 type: Boolean,
                 computed: "_computeRadio(attribute)"
             }
-        }
+        },
+        components: ["Checkbox", "Select"]
     })
     export class PersistentObjectAttributeKeyValueList extends WebComponents.Attributes.PersistentObjectAttribute {
         protected _valueChanged(newValue: any) {

@@ -8,7 +8,8 @@ namespace Vidyano.WebComponents {
                 type: Object,
                 computed: "_computeTab(retry.persistentObject, isAttached)"
             }
-        }
+        },
+        components: ["Button", "Notification", "PersistentObjectTabPresenter"]
     })
     export class RetryActionDialog extends Dialog {
         constructor(public retry: IRetryAction) {

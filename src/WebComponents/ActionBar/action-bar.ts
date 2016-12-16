@@ -30,7 +30,8 @@
         },
         forwardObservers: [
             "serviceObject.charts"
-        ]
+        ],
+        components: ["ActionButton", "ChartSelector", "InputSearch"]
     })
     export class ActionBar extends WebComponent {
         accent: boolean = false;

@@ -21,7 +21,8 @@
                 type: Number,
                 readOnly: true
             }
-        }
+        },
+        components: ["Icon", "Popup"]
     })
     export class TimePicker extends WebComponent {
         readonly hours: number; private _setHours: (hours: number) => void;

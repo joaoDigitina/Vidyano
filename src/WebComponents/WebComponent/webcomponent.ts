@@ -191,6 +191,16 @@
          * forwardObservers is used to forward Vidyano.Common.Observable notifications to Polymer notifyPath
          */
         forwardObservers?: string[];
+
+        /*
+         * An optional list of support libraries that this component relies on
+         */
+        libs?: string[];
+
+        /*
+         * An optional list of Vidyano components that this component relies on
+         */
+        components?: string[];
     }
 
     export interface IObserveChainDisposer {
@@ -391,14 +401,45 @@
     }
 
     export abstract class WebComponent extends PolymerBase {
-        private _app: Vidyano.WebComponents.App;
+        readonly app: Vidyano.WebComponents.App; private _setApp: (app: Vidyano.WebComponents.App) => void;
         readonly translations: any; private _setTranslations: (translations: any) => void;
         className: string;
         classList: DOMTokenList;
         tagName: string;
         style: CSSStyleDeclaration;
         isAttached: boolean;
-        app: Vidyano.WebComponents.App;
+
+        private async attachedCallback() {
+            let app: Vidyano.WebComponents.App;
+
+            if (this instanceof Vidyano.WebComponents.App)
+                app = this;
+            else {
+                const component = <Vidyano.WebComponents.WebComponent>this.findParent(e => !!e && (<any>e)._app instanceof Vidyano.WebComponents.App || e instanceof Vidyano.WebComponents.App);
+                if (!!component)
+                    app = component instanceof Vidyano.WebComponents.App ? component : component.app;
+                else
+                    app = null;
+            }
+
+            this._setApp(app);
+
+            if (app) {
+                const libs = <string[]>this["__libs_"];
+                if (libs) {
+                    await Promise.all(libs.map(c => app.importLib(c)));
+                    libs.splice(0, libs.length);
+                }
+
+                const components = <string[]>this["__components_"];
+                if (components) {
+                    await Promise.all(components.map(c => app.importComponent(c)));
+                    components.splice(0, components.length);
+                }
+            }
+
+            Polymer["Base"].attachedCallback.call(this);
+        }
 
         protected attached() {
             if (!this.app)
@@ -530,20 +571,6 @@
             };
         }
 
-        private _computeApp(isAttached: boolean): Vidyano.WebComponents.App {
-            if (!isAttached)
-                return this._app;
-
-            if (this instanceof Vidyano.WebComponents.App)
-                return (<Vidyano.WebComponents.WebComponent>this)._app = this;
-
-            const component = <Vidyano.WebComponents.WebComponent>this.findParent(e => !!e && (<any>e)._app instanceof Vidyano.WebComponents.App || e instanceof Vidyano.WebComponents.App);
-            if (!!component)
-                return this._app = component instanceof Vidyano.WebComponents.App ? component : component._app;
-
-            return this._app = null;
-        }
-
         // This function simply returns the value. This can be used to reflect a property on an observable object as an attribute.
         private _forwardComputed(value: any): any {
             return value;
@@ -559,7 +586,7 @@
             return results && results[1] || "";
         }
 
-        private static _register(obj: Function, info: IWebComponentRegistrationInfo = {}, prefix: string = "vi", ns?: any) {
+        private static _register(obj: Function, info: IWebComponentRegistrationInfo = {}, prefix: string = "vi") {
             const name = WebComponent.getName(obj);
             const elementName = prefix + name.replace(/([A-Z])/g, m => "-" + m[0].toLowerCase());
 
@@ -585,12 +612,28 @@
             info.properties["isAttached"] = Boolean;
             info.properties["app"] = {
                 type: Object,
-                computed: "_computeApp(isAttached)"
+                readOnly: true
             };
             info.properties["translations"] = {
                 type: Object,
                 readOnly: true
             };
+
+            if (info.libs && info.libs.length > 0) {
+                info.properties["__libs_"] = {
+                    type: Array,
+                    readOnly: true,
+                    value: info.libs
+                };
+            }
+
+            if (info.components && info.components.length > 0) {
+                info.properties["__components_"] = {
+                    type: Array,
+                    readOnly: true,
+                    value: info.components
+                };
+            }
 
             if (info.forwardObservers) {
                 info.observers = info.observers || [];
@@ -763,15 +806,12 @@
                     wc[method] = obj[method];
             }
 
-            if (ns)
-                ns[name] = wc;
-
             return wc;
         }
 
-        static register(obj: Function, info: IWebComponentRegistrationInfo, prefix?: string, ns?: any): Function;
+        static register(obj: Function, info: IWebComponentRegistrationInfo, prefix?: string): Function;
         static register(info?: IWebComponentRegistrationInfo, prefix?: string);
-        static register(info?: IWebComponentRegistrationInfo, prefix?: string): (obj: any) => void {
+        static register(info?: IWebComponentRegistrationInfo | Function, prefix?: string): (obj: any) => void {
             if (!info || typeof info === "object") {
                 return (obj: Function) => {
                     return WebComponent._register(obj, info, prefix);

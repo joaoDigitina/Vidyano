@@ -16,7 +16,8 @@ namespace Vidyano.WebComponents.Attributes {
                 type: Boolean,
                 computed: "_computeCanAdd(newValue, comboBoxOptions)"
             }
-        }
+        },
+        components: ["Icon", "Select"]
     })
     export class PersistentObjectAttributeComboBox extends WebComponents.Attributes.PersistentObjectAttribute {
         readonly comboBoxOptions: string[]; private _setComboBoxOptions: (options: string[]) => void;

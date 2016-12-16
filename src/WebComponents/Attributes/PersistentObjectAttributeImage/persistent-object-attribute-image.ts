@@ -11,7 +11,8 @@ namespace Vidyano.WebComponents.Attributes {
                 type: String,
                 computed: "_computeImage(value)"
             }
-        }
+        },
+        components: ["Icon"]
     })
     export class PersistentObjectAttributeImage extends WebComponents.Attributes.PersistentObjectAttribute {
         private _pasteListener: EventListener;
@@ -119,7 +120,8 @@ namespace Vidyano.WebComponents.Attributes {
         },
         observers: [
             "_showImage(headerSize, footerSize)"
-        ]
+        ],
+        components: ["Button", "SizeTracker", "Spinner"]
     })
     export class PersistentObjectAttributeImageDialog extends WebComponents.Dialog {
         private _updated: boolean;

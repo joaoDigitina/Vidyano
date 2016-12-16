@@ -21,7 +21,8 @@ namespace Vidyano.WebComponents {
         ],
         listeners: {
             "attribute-loaded": "_attributeLoaded"
-        }
+        },
+        components: ["Spinner"]
     })
     export class PersistentObjectTabPresenter extends WebComponent {
         private _renderedTab: Vidyano.PersistentObjectTab;

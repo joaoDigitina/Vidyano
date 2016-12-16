@@ -127,7 +127,8 @@
             "mouseenter": "_mouseenter",
             "mouseleave": "_mouseleave",
             "scroll": "_trapEvent"
-        }
+        },
+        components: ["SizeTracker"]
     })
     export class Scroller extends WebComponent {
         private static _minBarSize: number = 40;

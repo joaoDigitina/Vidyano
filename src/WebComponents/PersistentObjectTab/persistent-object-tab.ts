@@ -28,7 +28,8 @@ namespace Vidyano.WebComponents {
         forwardObservers: [
             "tab.parent.isEditing",
             "tab.groups"
-        ]
+        ],
+        components: ["PersistentObjectGroup", "Scroller", "SizeTracker"]
     })
     export class PersistentObjectTab extends WebComponent implements IConfigurable {
         private _attributePresenters: Vidyano.WebComponents.PersistentObjectAttributePresenter[];

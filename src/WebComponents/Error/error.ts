@@ -9,7 +9,8 @@
             },
             title: String,
             message: String
-        }
+        },
+        components: ["Icon"]
     })
     export class Error extends WebComponents.WebComponent {
     }

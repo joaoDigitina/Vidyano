@@ -61,7 +61,8 @@ namespace Vidyano.WebComponents {
             "mouseenter": "_contentMouseEnter",
             "mouseleave": "_contentMouseLeave",
             "click": "_catchContentClick"
-        }
+        },
+        components: ["SizeTracker"]
     })
     export class PopupCore extends WebComponent {
         private static _isBuggyGetBoundingClientRect: boolean;
@@ -421,7 +422,8 @@ namespace Vidyano.WebComponents {
         ],
         listeners: {
             "tap": "_tap"
-        }
+        },
+        components: ["SizeTracker"]
     })
     export class Popup extends PopupCore {
         private _tapHandler: EventListener;

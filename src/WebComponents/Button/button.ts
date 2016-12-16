@@ -26,7 +26,9 @@
         },
         listeners: {
             "tap": "_tap"
-        }
+        },
+        libs: ["paper-ripple"],
+        components: ["Icon"]
     })
     export class Button extends WebComponents.WebComponent {
         readonly customLayout: boolean; private _setCustomLayout: (custom: boolean) => void;

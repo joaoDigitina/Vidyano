@@ -59,7 +59,9 @@
         ],
         listeners: {
             "tap": "_catchTap"
-        }
+        },
+        libs: ["moment"],
+        components: ["Button", "Popup", "Icon"]
     })
     export class DatePicker extends WebComponent {
         private _daysBody: HTMLElement;

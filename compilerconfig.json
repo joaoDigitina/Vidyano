@@ -24,6 +24,10 @@
     "inputFile": "src/WebComponents/AppRoutePresenter/app-route-presenter.scss"
   },
   {
+    "outputFile": "src/WebComponents/Attributes/PersistentObjectAttribute/persistent-object-attribute-edit.css",
+    "inputFile": "src/WebComponents/Attributes/PersistentObjectAttribute/persistent-object-attribute-edit.scss"
+  },
+  {
     "outputFile": "src/WebComponents/Attributes/PersistentObjectAttributeAsDetail/persistent-object-attribute-as-detail-row.css",
     "inputFile": "src/WebComponents/Attributes/PersistentObjectAttributeAsDetail/persistent-object-attribute-as-detail-row.scss"
   },
@@ -114,10 +118,6 @@
   {
     "outputFile": "src/WebComponents/Attributes/PersistentObjectAttributeUser/persistent-object-attribute-user.css",
     "inputFile": "src/WebComponents/Attributes/PersistentObjectAttributeUser/persistent-object-attribute-user.scss"
-  },
-  {
-    "outputFile": "src/WebComponents/Attributes/persistent-object-attribute-edit.css",
-    "inputFile": "src/WebComponents/Attributes/persistent-object-attribute-edit.scss"
   },
   {
     "outputFile": "src/WebComponents/Button/button.css",

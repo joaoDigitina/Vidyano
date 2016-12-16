@@ -1,7 +1,9 @@
 namespace Vidyano.WebComponents.Attributes {
     "use strict";
 
-    @PersistentObjectAttribute.register
+    @PersistentObjectAttribute.register({
+        components: ["Checkbox"]
+    })
     export class PersistentObjectAttributeBoolean extends WebComponents.Attributes.PersistentObjectAttribute {
         protected _valueChanged(newValue: any) {
             if (this.attribute && newValue !== this.attribute.value)
@@ -19,7 +21,8 @@ namespace Vidyano.WebComponents.Attributes {
                 type: Array,
                 computed: "_computeBooleanOptions(attribute, translations)"
             }
-        }
+        },
+        components: ["Checkbox", "Select"]
     })
     export class PersistentObjectAttributeNullableBoolean extends WebComponents.Attributes.PersistentObjectAttribute {
         private _computeBooleanOptions(attribute: Vidyano.PersistentObjectAttribute): Common.IKeyValuePair[] {

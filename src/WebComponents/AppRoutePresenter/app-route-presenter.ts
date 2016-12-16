@@ -7,7 +7,8 @@
                 type: Boolean,
                 value: false
             }
-        }
+        },
+        components: ["Error"]
     })
     export class AppRoutePresenter extends WebComponent {
         notFound: boolean;

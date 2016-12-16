@@ -1,6 +1,3 @@
-type CM = CodeMirror.EditorFromTextArea;
-const CMFromTextArea = CodeMirror.fromTextArea;
-
 namespace Vidyano.WebComponents {
     "use strict";
 
@@ -43,11 +40,13 @@ namespace Vidyano.WebComponents {
             "_lineNumbersChanged(lineNumbers, initialized)",
             "_smartIndentChanged(smartIndent, initialized)",
             "_readOnlyChanged(readOnly, initialized)"
-        ]
+        ],
+        libs: ["codemirror"],
+        components: ["SizeTracker"]
     })
     export class CodeMirror extends WebComponents.WebComponent {
-        private _codeMirror: CM;
-        private _codeMirrorValueChangedHandler: (codeMirror: CM) => void;
+        private _codeMirror: CodeMirror.EditorFromTextArea;
+        private _codeMirrorValueChangedHandler: (codeMirror: CodeMirror.EditorFromTextArea) => void;
         initialized: boolean;
         readOnly: boolean;
         value: string;
@@ -64,7 +63,7 @@ namespace Vidyano.WebComponents {
 
             if (!this._codeMirror) {
                 const textArea = <HTMLTextAreaElement>this.$["target"];
-                this._codeMirror = CMFromTextArea(textArea, {
+                this._codeMirror = window["CodeMirror"].fromTextArea(textArea, {
                     value: textArea.value = this.value
                 });
             }

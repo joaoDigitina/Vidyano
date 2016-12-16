@@ -29,6 +29,21 @@ namespace Vidyano.WebComponents {
             history.replaceState(null, null, `${hashBangParts[1]}${hashBangParts[2]}`);
     }
 
+    const libs = {
+        "alertify": "alertify.js/alertify.html",
+        "codemirror": "codemirror/codemirror.html",
+        "d3": "d3/d3.min.js",
+        "iron-a11y-keys": "iron-a11y-keys/iron-a11y-keys.html",
+        "iron-collapse": "iron-collapse/iron-collapse.html",
+        "iron-list": "iron-list/iron-list.html",
+        "iron-media-query": "iron-media-query/iron-media-query.html",
+        "marked-element": "marked-element/marked-element.html",
+        "masked-input": "MaskedInput/masked-input.html",
+        "moment": "moment/moment.html",
+        "paper-ripple": "paper-ripple/paper-ripple.html",
+        "sortable": "sortable/sortable.html"
+    };
+
     export class AppCacheEntry {
         constructor(public id: string) {
         }
@@ -243,7 +258,9 @@ namespace Vidyano.WebComponents {
             "service.isSignedIn",
             "service.profile",
             "service.application"
-        ]
+        ],
+        libs: ["iron-a11y-keys", "iron-media-query", "alertify"],
+        components: ["Dialog", "Spinner", "AppRoutePresenter", "AppRoute", "Error", "Grid", "Icon", "Overflow", "Popup", "SessionPresenter"]
     })
     export class App extends WebComponent {
         private _cache: AppCacheEntry[] = [];
@@ -276,9 +293,10 @@ namespace Vidyano.WebComponents {
         attached() {
             super.attached();
 
-            this.set("appRoutesInitializer", new Promise(resolve => {
-                const bareboneTemplate = <PolymerTemplate><Node>Polymer.dom(this).children.filter(c => c.tagName === "TEMPLATE" && c.getAttribute("is") === "dom-template")[0];
-                this._setBarebone(!!bareboneTemplate);
+            const bareboneTemplate = <PolymerTemplate><Node>Polymer.dom(this).children.filter(c => c.tagName === "TEMPLATE" && c.getAttribute("is") === "dom-template")[0];
+            this._setBarebone(!!bareboneTemplate);
+
+            this.set("appRoutesInitializer", new Promise(async resolve => {
                 if (this.barebone) {
                     const appRouteTargetSetter = (e: CustomEvent) => {
                         this._appRoutePresenter = e.target as Vidyano.WebComponents.AppRoutePresenter;
@@ -293,6 +311,8 @@ namespace Vidyano.WebComponents {
                     Polymer.dom(this.root).appendChild(bareboneTemplate.stamp({ app: this }).root);
                 } else {
                     Polymer.dom(this).flush();
+
+                    await this.importComponent("SignIn", "SignOut");
 
                     this._appRoutePresenter = Polymer.dom(this.root).querySelector("vi-app-route-presenter") as Vidyano.WebComponents.AppRoutePresenter;
                     this._distributeAppRoutes();
@@ -472,20 +492,33 @@ namespace Vidyano.WebComponents {
             }
         }
 
-        async importComponent(component: string): Promise<any> {
-            if (component.split(".").reduce((obj: any, path: string) => obj[path], Vidyano.WebComponents))
-                return Promise.resolve(null);
-
-            const vidyanoComponentFolder = component.replace(".", "/");
-            const vidyanoComponent = vidyanoComponentFolder.split("/").reverse()[0].replace(/([A-Z])/g, m => "-" + m[0].toLowerCase()).substr(1);
-            const href = this.resolveUrl(`../${vidyanoComponentFolder}/${vidyanoComponent}.html`);
+        async importLib(lib: string): Promise<any> {
+            const href = this.resolveUrl(`../../Libs/${libs[lib]}`);
 
             try {
                 await this.importHref(href);
             }
             catch (e) {
-                console.error(`Unable to load component ${component} via import ${href}`);
+                console.error(`Unable to load support library ${lib} via import ${href}`);
             }
+        }
+
+        async importComponent(...components: string[]): Promise<any> {
+            await Promise.all(components.map(async component => {
+                if (component.split(".").reduce((obj: any, path: string) => obj && obj[path], Vidyano.WebComponents))
+                    return Promise.resolve(null);
+
+                const vidyanoComponentFolder = component.replace(".", "/");
+                const vidyanoComponent = vidyanoComponentFolder.split("/").reverse()[0].replace(/([A-Z])/g, m => "-" + m[0].toLowerCase()).substr(1);
+                const href = this.resolveUrl(`../${vidyanoComponentFolder}/${vidyanoComponent}.html`);
+
+                try {
+                    await this.importHref(href);
+                }
+                catch (e) {
+                    console.error(`Unable to load component ${component} via import ${href}`);
+                }
+            }));
         }
 
         private _distributeAppRoutes() {

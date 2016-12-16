@@ -207,7 +207,8 @@ ModelManifest.xml
 /src/Libs/Alertify.js/*.js
 /src/Libs/Alertify.js/*.css
 /src/Libs/bignumber.js/
-/src/Libs/codemirror/
+/src/Libs/codemirror/lib/
+/src/Libs/codemirror/mode/
 /src/Libs/d3/
 /src/Libs/es6-promise/
 /src/Libs/iron-*
@@ -218,7 +219,7 @@ ModelManifest.xml
 /src/Libs/paper-ripple/
 /src/Libs/pathjs/
 /src/Libs/polymer/
-/src/Libs/sortable/
+/src/Libs/sortable/*.js
 /src/Libs/tslib/
 /src/Libs/webcomponentsjs/
 /src/Test/*.js

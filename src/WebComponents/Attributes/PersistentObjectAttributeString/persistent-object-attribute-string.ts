@@ -26,6 +26,7 @@
             inputtype: String,
             maxlength: Number,
         },
+        components: ["Icon", "Popup", "Scroller"]
     })
     export class PersistentObjectAttributeString extends PersistentObjectAttribute {
         private _suggestionsSeparator: string;

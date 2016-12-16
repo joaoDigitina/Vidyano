@@ -41,7 +41,8 @@ namespace Vidyano.WebComponents.Attributes {
         },
         observers: [
             "_update(attribute.isReadOnly)"
-        ]
+        ],
+        components: ["Icon", "Checkbox", "Select", "SelectReferenceDialog"]
     })
     export class PersistentObjectAttributeReference extends WebComponents.Attributes.PersistentObjectAttribute {
         readonly canClear: boolean; private _setCanClear: (val: boolean) => void;

@@ -6,14 +6,15 @@ namespace Vidyano.WebComponents.Attributes {
             maxlength: Number,
             codeMirror: {
                 type: String,
-                computed: "_computeCodeMirror(attribute)",
+                computed: "_computeCodeMirror(attribute, isAttached)",
                 value: ""
             },
             isCodeMirrorReadOnly: {
                 type: Boolean,
                 computed: "_computeIsCodeMirrorReadOnly(readOnly, editing)"
             }
-        }
+        },
+        components: ["Scroller"]
     })
     export class PersistentObjectAttributeMultiLineString extends PersistentObjectAttribute {
         maxlength: number;
@@ -35,7 +36,7 @@ namespace Vidyano.WebComponents.Attributes {
         private _computeCodeMirror(attribute: Vidyano.PersistentObjectAttribute): string {
             const codeMirror = attribute ? attribute.getTypeHint("language") : null;
             if (codeMirror)
-                this.importHref(this.resolveUrl("../../CodeMirror/code-mirror.html"));
+                this.app.importLib("codemirror");
 
             return codeMirror;
         }

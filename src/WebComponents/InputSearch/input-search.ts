@@ -16,7 +16,8 @@ namespace Vidyano.WebComponents {
                 type: Boolean,
                 reflectToAttribute: true
             }
-        }
+        },
+        components: ["Icon"]
     })
     export class InputSearch extends WebComponent {
         value: string;

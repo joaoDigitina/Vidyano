@@ -15,7 +15,8 @@
         },
         listeners: {
             "app-route-activate": "_activate"
-        }
+        },
+        components: ["Scroller"]
     })
     export class SignIn extends WebComponent {
         error: string;
@@ -121,7 +122,8 @@
         },
         listeners: {
             "tap": "_tap"
-        }
+        },
+        components: ["Button", "Checkbox", "AttachedNotifier"]
     })
     export class SignInProvider extends WebComponent {
         private _signInButton: HTMLButtonElement;

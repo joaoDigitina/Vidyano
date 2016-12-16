@@ -22,7 +22,8 @@
                 type: Boolean,
                 computed: "_computeCanShowDialog(strings, multiline)"
             }
-        }
+        },
+        components: ["Icon", "Scroller"]
     })
     export class PersistentObjectAttributeTranslatedString extends PersistentObjectAttribute {
         private _defaultLanguage: string;
@@ -110,7 +111,8 @@
                 type: Boolean,
                 reflectToAttribute: true,
             }
-        }
+        },
+        components: ["Button"]
     })
     export class PersistentObjectAttributeTranslatedStringDialog extends Dialog {
         constructor(public label: string, public strings: ITranslatedString[], public multiline: boolean, public readonly: boolean) {

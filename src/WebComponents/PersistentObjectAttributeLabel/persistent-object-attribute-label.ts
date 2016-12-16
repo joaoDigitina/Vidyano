@@ -51,7 +51,8 @@
             "attribute.value",
             "attribute.validationError",
             "attribute.parent.isBulkEdit"
-        ]
+        ],
+        components: ["Button", "Icon"]
     })
     export class PersistentObjectAttributeLabel extends WebComponent {
         attribute: Vidyano.PersistentObjectAttribute;

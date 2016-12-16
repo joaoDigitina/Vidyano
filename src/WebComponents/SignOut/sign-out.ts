@@ -4,7 +4,8 @@ namespace Vidyano.WebComponents {
     @WebComponent.register({
         listeners: {
             "app-route-activate": "_activate"
-        }
+        },
+        components: ["Spinner"]
     })
     export class SignOut extends WebComponent {
         private async _activate(e: CustomEvent) {

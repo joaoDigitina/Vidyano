@@ -39,7 +39,8 @@ namespace Vidyano.WebComponents {
         },
         listeners: {
             "reset-filter": "_resetFilter"
-        }
+        },
+        components: ["Button", "InputSearch", "Icon", "Popup", "Scroller", "User"]
     })
     export class Menu extends WebComponent {
         private static _minResizeWidth: number;
@@ -266,7 +267,9 @@ namespace Vidyano.WebComponents {
         ],
         listeners: {
             "tap": "_tap"
-        }
+        },
+        libs: ["paper-ripple", "iron-collapse"],
+        components: ["Icon"]
     })
     export class MenuItem extends WebComponent {
         readonly expand: boolean; private _setExpand: (val: boolean) => void;

@@ -41,7 +41,8 @@ namespace Vidyano.WebComponents {
         ],
         listeners: {
             "file-dropped": "_onFileDropped"
-        }
+        },
+        components: ["FileDrop"]
     })
     export class QueryItemsPresenter extends WebComponent implements IConfigurable {
         private _renderedQuery: Vidyano.Query;
@@ -94,13 +95,7 @@ namespace Vidyano.WebComponents {
                         return;
                     }
 
-                    await this.importHref(this.resolveUrl("../Chart/chart-dependencies.html"));
-
-                    if (query !== this.query || this._renderedQuery === query)
-                        return;
-
                     this._renderedQuery = query;
-
                     Polymer.dom(this).appendChild(chartConfig.stamp(currentChart, chartConfig.as || "chart"));
                 }
 

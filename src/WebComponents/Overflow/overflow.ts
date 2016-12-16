@@ -11,7 +11,8 @@ namespace Vidyano.WebComponents {
         },
         listeners: {
             "sizechanged": "_childSizechanged"
-        }
+        },
+        components: ["Button", "Popup", "SizeTracker"]
     })
     export class Overflow extends WebComponent {
         private _overflownChildren: linqjs.Enumerable<HTMLElement>;

@@ -36,7 +36,8 @@
         },
         listeners: {
             "vi-persistent-object-tab-inner-size-changed": "_tabInnerSizeChanged"
-        }
+        },
+        components: ["Button", "Notification", "PersistentObjectTabPresenter"]
     })
     export class PersistentObjectDialog extends Dialog {
         private _saveHook: (po: Vidyano.PersistentObject) => Promise<any>;

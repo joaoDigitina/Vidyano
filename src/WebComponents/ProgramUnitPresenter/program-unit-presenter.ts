@@ -16,6 +16,7 @@ namespace Vidyano.WebComponents {
         listeners: {
             "app-route-activate": "_activate"
         },
+        components: ["Error"]
     })
     export class ProgramUnitPresenter extends WebComponent {
         readonly programUnit: Vidyano.ProgramUnit; private _setProgramUnit: (programUnit: Vidyano.ProgramUnit) => void;

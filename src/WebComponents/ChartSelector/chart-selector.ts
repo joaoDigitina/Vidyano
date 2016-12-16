@@ -12,7 +12,8 @@ namespace Vidyano.WebComponents {
         forwardObservers: [
             "query.charts",
             "query.currentChart"
-        ]
+        ],
+        components: ["Button", "PopupMenu"]
     })
     export class ChartSelector extends WebComponent {
         query: Vidyano.Query;

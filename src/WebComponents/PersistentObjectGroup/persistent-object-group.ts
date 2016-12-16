@@ -42,7 +42,8 @@
         },
         forwardObservers: [
             "group.attributes"
-        ]
+        ],
+        components: ["PersistentObjectAttributePresenter"]
     })
     export class PersistentObjectGroup extends WebComponent {
         private _items: IPersistentObjectGroupItem[];

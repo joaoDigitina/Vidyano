@@ -17,7 +17,8 @@ namespace Vidyano.WebComponents.Attributes {
         forwardObservers: [
             "attribute.validationError",
             "attribute.isReadOnly"
-        ]
+        ],
+        components: ["Icon", "Popup", "MessageDialog"]
     })
     export class PersistentObjectAttributeValidationError extends WebComponents.WebComponent {
         attribute: Vidyano.PersistentObjectAttribute;

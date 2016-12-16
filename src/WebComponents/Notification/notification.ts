@@ -39,7 +39,8 @@
             "serviceObject.notification",
             "serviceObject.notificationType",
             "serviceObject.notificationDuration"
-        ]
+        ],
+        components: ["Button", "Icon", "SizeTracker"]
     })
     export class Notification extends WebComponent {
         readonly isOverflowing: boolean; private _setIsOverflowing: (val: boolean) => void;

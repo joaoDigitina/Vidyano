@@ -4,7 +4,7 @@
     reflectToAttribute?: boolean;
     readOnly?: boolean;
     observer?: string;
-    value?: number | boolean | string | Function;
+    value?: number | boolean | string | Array | Function;
     notify?: boolean;
 }
 

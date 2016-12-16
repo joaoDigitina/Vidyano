@@ -18,7 +18,8 @@
                 type: Object,
                 readOnly: true
             }
-        }
+        },
+        components: ["Button", "Icon"]
     })
     export class MessageDialog extends Dialog {
         readonly options: IMessageDialogOptions; private _setOptions: (options: IMessageDialogOptions) => void;
@@ -31,7 +32,7 @@
 
         async open(): Promise<any> {
             if (this.options.rich)
-                await this.importHref(this.resolveUrl("../../Libs/marked-element/marked-element.html"));
+                await this.app.importLib("marked-element");
 
             return super.open();
         }

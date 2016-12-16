@@ -1,7 +1,9 @@
 ﻿namespace Vidyano.WebComponents.Attributes {
     "use strict";
 
-    @PersistentObjectAttribute.register
+    @PersistentObjectAttribute.register({
+        components: ["Checkbox"]
+    })
     export class PersistentObjectAttributeFlagsEnum extends WebComponents.Attributes.PersistentObjectAttribute {
         private _disablePopup(readonly: boolean, disabled: boolean): boolean {
             return readonly || disabled;
@@ -32,7 +34,8 @@
         ],
         forwardObservers: [
             "attribute.value"
-        ]
+        ],
+        components: ["Icon", "Popup"]
     })
     export class PersistentObjectAttributeFlagsEnumFlag extends WebComponents.WebComponent {
         private _skipCheckedChanged: boolean;

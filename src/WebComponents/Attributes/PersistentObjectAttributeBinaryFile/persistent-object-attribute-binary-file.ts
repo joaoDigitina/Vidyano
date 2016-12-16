@@ -14,7 +14,8 @@ namespace Vidyano.WebComponents.Attributes {
         },
         observers: [
             "_registerInput(attribute, isAttached)"
-        ]
+        ],
+        components: ["Icon"]
     })
     export class PersistentObjectAttributeBinaryFile extends WebComponents.Attributes.PersistentObjectAttribute {
         private _inputContainer: HTMLDivElement;

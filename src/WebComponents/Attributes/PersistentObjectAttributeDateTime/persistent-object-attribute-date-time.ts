@@ -52,7 +52,9 @@
                 type: Boolean,
                 computed: "_computeMonthMode(attribute.typeHints.displayformat)"
             }
-        }
+        },
+        libs: ["moment"],
+        components: ["Icon", "DatePicker", "TimePicker", "MaskedInput"]
     })
     export class PersistentObjectAttributeDateTime extends WebComponents.Attributes.PersistentObjectAttribute {
         private _dateInput: HTMLInputElement;

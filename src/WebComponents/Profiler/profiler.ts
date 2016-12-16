@@ -61,7 +61,9 @@ namespace Vidyano.WebComponents {
         ],
         observers: [
             "_renderRequestTimeline(selectedRequest, timelineSize, zoom)"
-        ]
+        ],
+        libs: ["d3"],
+        components: ["Button", "Icon", "Popup", "Scroller", "SizeTracker"]
     })
     export class Profiler extends WebComponent {
         private _boundMousehweel = this._onMousewheel.bind(this);

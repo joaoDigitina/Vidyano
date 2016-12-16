@@ -38,7 +38,8 @@ namespace Vidyano.WebComponents {
         },
         listeners: {
             "vi-persistent-object-tab-inner-size-changed": "_tabInnerSizeChanged"
-        }
+        },
+        components: ["Button", "Notification", "PersistentObjectTabPresenter"]
     })
     export class PersistentObjectWizardDialog extends Dialog {
         readonly currentTab: Vidyano.PersistentObjectAttributeTab; private _setCurrentTab: (tab: Vidyano.PersistentObjectTab) => void;

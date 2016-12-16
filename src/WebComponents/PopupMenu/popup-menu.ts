@@ -34,7 +34,8 @@ namespace Vidyano.WebComponents {
         listeners: {
             "mouseenter": "_mouseenter",
             "mousemove": "_mousemove"
-        }
+        },
+        components: ["Popup"]
     })
     export class PopupMenu extends WebComponent {
         private _openContextEventListener: EventListener;
@@ -111,7 +112,8 @@ namespace Vidyano.WebComponents {
         },
         listeners: {
             "tap": "_onTap"
-        }
+        },
+        components: ["Button", "Icon", "Popup"]
     })
     export class PopupMenuItem extends WebComponent {
         private _observer: PolymerDomChangeObserver;
@@ -165,7 +167,8 @@ namespace Vidyano.WebComponents {
         },
         listeners: {
             "tap": "_onTap"
-        }
+        },
+        components: ["Button", "Icon", "Popup"]
     })
     export class PopupMenuItemSplit extends WebComponent {
         private _observer: PolymerDomChangeObserver;

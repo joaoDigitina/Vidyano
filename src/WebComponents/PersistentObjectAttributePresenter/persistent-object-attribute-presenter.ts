@@ -82,7 +82,8 @@ namespace Vidyano.WebComponents {
             "attribute.isValueChanged",
             "attribute.validationError",
             "attribute.parent.isBulkEdit"
-        ]
+        ],
+        components: ["Checkbox", "PersistentObjectAttributeLabel", "Attributes.PersistentObjectAttribute", "Attributes.PersistentObjectAttributeString"]
     })
     export class PersistentObjectAttributePresenter extends WebComponent implements IConfigurable {
         private static _attributeImports: {

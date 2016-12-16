@@ -69,7 +69,8 @@ namespace Vidyano.WebComponents {
         },
         observers: [
             "_computeSuggestionFeedback(inputValue, suggestion, filtering)"
-        ]
+        ],
+        components: ["Icon", "Popup"]
     })
     export class Select extends WebComponent {
         private items: ISelectItem[];

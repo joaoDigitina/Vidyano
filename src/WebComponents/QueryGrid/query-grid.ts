@@ -993,7 +993,8 @@
             "pageup": "_pageUp",
             "down": "_downArrow",
             "up": "_upArrow"
-        }
+        },
+        components: ["ActionButton", "Checkbox", "Popup", "PopupMenu", "Scroller", "SizeTracker", "Style", "Sortable", "Spinner"]
     })
     export class QueryGrid extends WebComponent {
         private static tableCache: { header: QueryGridTableHeader; footer: QueryGridTableFooter, data: QueryGridTableData }[] = [];
