@@ -493,7 +493,7 @@ namespace Vidyano.WebComponents {
         }
 
         async importLib(lib: string): Promise<any> {
-            const href = this.resolveUrl(`../../Libs/${libs[lib]}`);
+            const href = this.resolveUrl(`../../Libs/${libs[lib] || lib}`);
 
             try {
                 await this.importHref(href);
