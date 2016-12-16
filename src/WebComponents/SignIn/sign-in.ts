@@ -123,6 +123,7 @@
         listeners: {
             "tap": "_tap"
         },
+        libs: ["iron-collapse"],
         components: ["Button", "Checkbox", "AttachedNotifier"]
     })
     export class SignInProvider extends WebComponent {
